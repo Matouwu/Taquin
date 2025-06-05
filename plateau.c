@@ -29,7 +29,7 @@ void display_plat(Plateau *p){
     int i, j;
     for (i=0; i < NB_COL; i++){
         for (j=0; j < NB_ROW; j++){
-            printf("(%d,%d) ", (p->bloc)[i][j].row,(p->bloc)[i][j].col);
+            printf("(%d,%d) ",(p->bloc)[i][j].col, (p->bloc)[i][j].row);
         }
         printf("\n");
     }
@@ -40,7 +40,7 @@ Square* pos_black(Plateau *p){
     for (i=0; i < NB_ROW; i++){
         for (j=0; j < NB_COL; j++){
             if (((p->bloc)[i][j].row) == NB_ROW-1 && ((p->bloc)[i][j].col) == NB_COL-1) {
-                return create_square(i,j);
+                return create_square(j,i);
             }
         }
     }
@@ -49,6 +49,10 @@ Square* pos_black(Plateau *p){
 
 
 int near_black(Plateau *p,Square *black, Square *click){
+    printf("black : ");
+    display_square(black);
+    printf("click : ");
+    display_square(click);
     return ((black->row == click->row+1 || black->row == click->row-1) && black->col == click->col)
         || ((black->col == click->col+1 || black->col == click->col-1) && black->row == click->row);
 }

@@ -15,24 +15,27 @@ int main(){
     InitializationPlateau(p);
     graphic_init(p);
 
-    Square *black = pos_black(p);
-
-
     /* Game loop */
+    Square *black = pos_black(p);
     int x, y;
     while(1){
         MLV_wait_mouse(&x, &y);
         x = x/IMG_PART;
         y = y/IMG_PART;
-        Square *click = create_square(x, y);
+
+        /*Square *click = create_square(x, y);
         int near = near_black(p,black,click);
         printf("near = %d\n",near);
         printf("x= %d, y=%d\n", x, y);
         if(near){
-            swap_square(p, click, black);
+            printf("black = \n");
+            display_square(black);
+            swap_square(p, black, click);
+            printf("after black = \n");
+            display_square(black);
             printf("After swap :\n");
             display_plat(p);
-        }
+        }*/
     }
 
 
