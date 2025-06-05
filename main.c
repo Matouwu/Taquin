@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include "plateau.h"
 #include "taquin.h"
 #include "graphic.h"
 
@@ -15,23 +15,29 @@ int main(){
     InitializationPlateau(p);
     graphic_init(p);
 
+    Square *black = pos_black(p);
+
+
     /* Game loop */
     int x, y;
     while(1){
-      MLV_wait_mouse(&x, &y);
-      printf("%i\n",near_black(p,&x, &y));
-      if(near_black(p,&x, &y)){
-        Square *a = create_square();
-      }
-
+        MLV_wait_mouse(&x, &y);
+        x = x/IMG_PART;
+        y = y/IMG_PART;
+        Square *click = create_square(x, y);
+        int near = near_black(p,black,click);
+        printf("near = %d\n",near);
+        printf("x= %d, y=%d\n", x, y);
+        if(near){
+            swap_square(p, click, black);
+            printf("After swap :\n");
+            display_plat(p);
+        }
     }
 
 
 
-
-
-
-
+    free_plat(p);
     MLV_free_window();
     return EXIT_SUCCESS;
 }

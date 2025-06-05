@@ -1,97 +1,48 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "taquin.h"
 
-/*
- * Initializer function
- */
-Plateau *create_plat(){
-  Plateau *p = (Plateau *)malloc(sizeof(Plateau));
-  return p;
-}
-
-void free_plat(Plateau *p){
-  free(p);
-}
-
-void display_plat(Plateau *p){
-  int i, j;
-  for (i=0; i < NB_COL; i++){
-    for (j=0; j < NB_ROW; j++){
-     printf("(%d,%d) ", (p->bloc)[i][j].row,(p->bloc)[i][j].col);
-    }
-    printf("\n");
-  }
-}
-
-void swap_square(Plateau *p, Square *a, Square *b){
-
-}
 
 void random_swap(Plateau *p){
-  int i, j;
-  int temp_row, temp_col;
-  int temp_i, temp_j;
+  int g = 0;
+  Square *black = pos_black(p);
+  Square *temp;
+  int side = MLV_get_random_integer(0,4);
 
-  for (i=0; i < NB_ROW; i++){
-    for (j=0; j < NB_COL; j++){
-      if (((p->bloc)[i][j].row)==3 && ((p->bloc)[i][j].col)==3) {
-        temp_i = i;
-        temp_j = j;
-      }
-    }
-  }
-  i = temp_i;
-  j = temp_j;
+  while (g != 1){
 
-  int side = MLV_get_random_integer(0,2);
-  if(side==0){
-    if(i+1>=NB_ROW){
-      temp_i = i-1;
-    }
-    else if(i-1<0){
-      temp_i = i+1;
-    } else {
-      int vertical = MLV_get_random_integer(0,2);
-      switch(vertical){
-        case 0:
-          temp_i = i-1;
-          break;
+    switch (side){
+        case 0: /* top */
+            if( black->row-1 >= 0 ){
+                temp = create_square(black->row-1, black->col);
+                swap_square(p, black, temp);
+                g=1;
+            }
+            break;
+        case 1:
+            if( black->col+1 < NB_COL ){
+                temp = create_square(black->row, black->col+1);
+                swap_square(p, black, temp);
+                g=1;
+            }
+            break;
+        case 2:
+            if( black->row+1 < NB_ROW ){
+                temp = create_square(black->row+1, black->col);
+                swap_square(p, black, temp);
+                g=1;
+            }
+            break;
+        case 3:
+            if( black->col-1 >= 0 ){
+                temp = create_square(black->row, black->col-1);
+                swap_square(p, black, temp);
+                g=1;
+            }
+            break;
         default:
-          temp_i = i+1;
-          break;
-      }
+            printf("Illegal side\n");
     }
-    temp_row = (p->bloc)[temp_i][j].row;
-    temp_col = (p->bloc)[temp_i][j].col;
-    (p->bloc)[temp_i][j].row = (p->bloc)[i][j].row;
-    (p->bloc)[temp_i][j].col = (p->bloc)[i][j].col;
-    (p->bloc)[i][j].row = temp_row;
-    (p->bloc)[i][j].col = temp_col;
-  } else {
-    if(j+1>=NB_COL){
-      temp_j = j-1;
-    }
-    else if(j-1<0){
-      temp_j = j+1;
-    } else {
-      int horizontal = MLV_get_random_integer(0,2);
-      switch(horizontal){
-        case 0:
-          temp_j = j-1;
-        break;
-        default:
-          temp_j = j+1;
-        break;
-      }
-    }
-
-    temp_row = (p->bloc)[i][temp_j].row;
-    temp_col = (p->bloc)[i][temp_j].col;
-    (p->bloc)[i][temp_j].row = (p->bloc)[i][j].row;
-    (p->bloc)[i][temp_j].col = (p->bloc)[i][j].col;
-    (p->bloc)[i][j].row = temp_row;
-    (p->bloc)[i][j].col = temp_col;
+    side = MLV_get_random_integer(0,4);
   }
 }
 
@@ -106,11 +57,26 @@ void InitializationPlateau(Plateau *p){
   }
 
   /* Random the bloc */
+  printf("===== Initiale Plateau :\n");
   display_plat(p);
   printf("\n\n");
   int round = MLV_get_random_integer(1000, 2000);
   for(i=0; i<round; i++){
     random_swap(p);
   }
+  printf("===== Change Plateau :\n");
   display_plat(p);
+}
+
+
+/*
+ * Applicative function
+ */
+void swap_square(Plateau *p, Square *a, Square *b){
+    int temp_row = (p->bloc)[a->row][a->col].row;
+    int temp_col = (p->bloc)[a->row][a->col].col;
+    (p->bloc)[a->row][a->col].row = (p->bloc)[b->row][b->col].row;
+    (p->bloc)[a->row][a->col].col = (p->bloc)[b->row][b->col].col;
+    (p->bloc)[b->row][b->col].row = temp_row;
+    (p->bloc)[b->row][b->col].col = temp_col;
 }

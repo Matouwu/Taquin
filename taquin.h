@@ -2,21 +2,12 @@
 #define TAQUIN_H
 
 #include <MLV/MLV_all.h>
+#include "plateau.h"
 
-#define NB_COL 4     /* colonne */
-#define NB_ROW 4     /* ligne */
-
-typedef struct square {
-    int row;
-    int col;
-} Square;
-
-typedef struct plateau{
-    Square bloc[NB_COL][NB_ROW];
-} Plateau;
-
-Plateau *create_plat();
-void free_plat(Plateau *p);
 void InitializationPlateau(Plateau *p);
+
+void swap_square(Plateau *p, Square *a, Square *b);
+
+
 
 #endif /*TAQUIN_H*/
