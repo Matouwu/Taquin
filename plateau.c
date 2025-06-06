@@ -5,17 +5,17 @@
 #include <stdio.h>
 
 /* Initializer function */
-Square *create_square(int row, int col){
+Square *create_square(int col, int row){
     Square *s = (Square *)malloc(sizeof(Square));
-    s->row = row;
     s->col = col;
+    s->row = row;
     return s;
 }
 void free_square(Square *s){
     free(s);
 }
 void display_square(Square *s){
-    printf("(%i,%i)\n",s->row,s->col);
+    printf("(%i,%i)\n",s->col, s->row);
 }
 
 Plateau *create_plat(){
@@ -48,7 +48,7 @@ Square* pos_black(Plateau *p){
 }
 
 
-int near_black(Plateau *p,Square *black, Square *click){
+int near_black(Square *black, Square *click){
     printf("black : ");
     display_square(black);
     printf("click : ");

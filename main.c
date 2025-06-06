@@ -18,24 +18,28 @@ int main(){
     /* Game loop */
     Square *black = pos_black(p);
     int x, y;
-    while(1){
+    while(!end_game(p)){
         MLV_wait_mouse(&x, &y);
         x = x/IMG_PART;
         y = y/IMG_PART;
 
-        /*Square *click = create_square(x, y);
-        int near = near_black(p,black,click);
-        printf("near = %d\n",near);
-        printf("x= %d, y=%d\n", x, y);
+        Square *click = create_square(x, y);
+        int near = near_black(black,click);
         if(near){
-            printf("black = \n");
-            display_square(black);
             swap_square(p, black, click);
-            printf("after black = \n");
-            display_square(black);
             printf("After swap :\n");
             display_plat(p);
-        }*/
+            graphic_init(p);
+            MLV_actualise_window();
+        }
+    }
+    printf("==================================================\n");
+    printf("========================FINI======================\n");
+    printf("==================================================\n");
+    if (!end_game(p)) {
+        MLV_draw_rectangle(0,0,WINDOW_SIZE, WINDOW_SIZE,MLV_COLOR_ALICE_BLUE);
+        MLV_actualise_window();
+        MLV_wait_milliseconds(40000);
     }
 
 

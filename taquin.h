@@ -5,8 +5,8 @@
 #include "plateau.h"
 
 void InitializationPlateau(Plateau *p);
-
 void swap_square(Plateau *p, Square *a, Square *b);
+int end_game(Plateau *p);
 
 
 

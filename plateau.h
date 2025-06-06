@@ -28,6 +28,6 @@ void free_plat(Plateau *p);
 void display_plat(Plateau *p);
 
 Square* pos_black(Plateau *p);
-int near_black(Plateau *p,Square *black, Square *click);
+int near_black(Square *black, Square *click);
 
 #endif /*PLATEAU_H*/

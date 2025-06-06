@@ -7,8 +7,6 @@ void random_swap(Plateau *p){
     int i;
     Square *black = pos_black(p);
     for(i=0; i<round; i++){
-      /*printf("black dans random : ");
-      display_square(black);*/
       Square *temp;
       int side = MLV_get_random_integer(0,4);
       switch (side){
@@ -56,7 +54,7 @@ void InitializationPlateau(Plateau *p){
   printf("===== Initiale Plateau :\n");
   display_plat(p);
   printf("\n\n");
-    random_swap(p);
+  random_swap(p);
   printf("===== Change Plateau :\n");
   display_plat(p);
 }
@@ -76,3 +74,16 @@ void swap_square(Plateau *p, Square *a, Square *b){
     a->col = b->col;
     a->row = b->row;
 }
+
+int end_game(Plateau *p) {
+  int i, j;
+  for (i = 0; i < NB_ROW; i++) {
+    for (j = 0; j < NB_COL; j++) {
+      if (p->bloc[i][j].col != j || p->bloc[i][j].row != i) {
+        return 0;
+      }
+    }
+  }
+  return 1;
+}
+
