@@ -3,7 +3,7 @@
 #include <MLV/MLV_all.h>
 #include "taquin.h"
 
-#define IMAGE MLV_load_image("data/totoro.jpg");
+extern MLV_Image* IMG = NULL;
 
 
 void graphic_init(Plateau *p);

@@ -8,7 +8,7 @@ int main(){
     Plateau *p = create_plat();
 
     /* Create the window */
-    MLV_create_window("Jeu de Taquin","TAQUIN", WINDOW_SIZE, WINDOW_SIZE);
+    MLV_create_window("TaquIsa Game","TAQUISA", WINDOW_SIZE, WINDOW_SIZE);
     MLV_actualise_window();
 
     /* Game starter pack */
