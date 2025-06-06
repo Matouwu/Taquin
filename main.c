@@ -7,7 +7,7 @@
 int main(){
     Plateau *p = create_plat();
 
-    /* Create the window*/
+    /* Create the window */
     MLV_create_window("Jeu de Taquin","TAQUIN", WINDOW_SIZE, WINDOW_SIZE);
     MLV_actualise_window();
 
@@ -36,12 +36,7 @@ int main(){
     printf("==================================================\n");
     printf("========================FINI======================\n");
     printf("==================================================\n");
-    if (!end_game(p)) {
-        MLV_draw_rectangle(0,0,WINDOW_SIZE, WINDOW_SIZE,MLV_COLOR_ALICE_BLUE);
-        MLV_actualise_window();
-        MLV_wait_milliseconds(40000);
-    }
-
+    graphic_win();
 
 
     free_plat(p);

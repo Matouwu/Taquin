@@ -6,7 +6,7 @@ void random_swap(Plateau *p){
     int round = MLV_get_random_integer(1000, 2000);
     int i;
     Square *black = pos_black(p);
-    for(i=0; i<round; i++){
+    for(i=0; i<2; i++){
       Square *temp;
       int side = MLV_get_random_integer(0,4);
       switch (side){
